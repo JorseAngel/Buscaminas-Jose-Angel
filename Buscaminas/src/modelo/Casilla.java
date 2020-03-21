@@ -3,6 +3,7 @@ package modelo;
 public class Casilla {
 	private Coordenada coordenada;
 	private boolean velada;
+	private boolean marcada;
 	private Valor valor;
 	
 	public Casilla(boolean velada, Valor valor) {
@@ -29,6 +30,14 @@ public class Casilla {
 
 	public void setVelada(boolean velada) {
 		this.velada = velada;
+	}
+	
+	public boolean isMarcada() {
+		return marcada;
+	}
+
+	public void setMarcada(boolean marcada) {
+		this.marcada = marcada;
 	}
 
 	public int getValor() {
