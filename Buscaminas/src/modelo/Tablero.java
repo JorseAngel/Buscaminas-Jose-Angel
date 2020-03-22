@@ -7,6 +7,7 @@ public class Tablero {
 	public Tablero(Dificultad dificultad, Casilla[][] casillas) {
 		super();
 		this.dificultad = dificultad;
+		this.casillas = new Casilla[dificultad.getTamano()][dificultad.getTamano()];
 		this.casillas = casillas;
 	}
 
