@@ -13,6 +13,33 @@ public class Tablero {
 		establecerMinasAlrededor();
 	}
 
+	public boolean marcarCasilla(Coordenada coordenada) {
+		assert inRango(coordenada);
+		
+		boolean bandera = false;
+		if (isVelada(coordenada) && !isMarcada(coordenada)) {
+			bandera = true;
+			getCasilla(coordenada).setMarcada(true);
+		}
+		return bandera;
+	}
+
+	public boolean desmarcarCasilla(Coordenada coordenada) {
+		assert inRango(coordenada);
+		
+		boolean bandera = false;
+		if (isVelada(coordenada) && isMarcada(coordenada)) {
+			bandera = true;
+			getCasilla(coordenada).setMarcada(false);
+		}
+		return bandera;
+	}
+
+	private boolean inRango(Coordenada coordenada) {
+		return (coordenada.getPosX() > 0 && coordenada.getPosX() < this.casillas.length)
+				&& (coordenada.getPosY() > 0 && coordenada.getPosY() < this.casillas.length);
+	}
+
 	private void establecerMinasAlrededor() {
 		// TODO
 
@@ -82,5 +109,12 @@ public class Tablero {
 	private boolean isMina(Coordenada posicion) {
 		return getCasilla(posicion).isMina();
 	}
-
+	
+	private boolean isVelada(Coordenada coordenada) {
+		return getCasilla(coordenada).isVelada();
+	}
+	
+	private boolean isMarcada(Coordenada coordenada) {
+		return getCasilla(coordenada).isMarcada();
+	}
 }
