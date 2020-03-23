@@ -11,7 +11,7 @@ import utiles.Utiles;
 
 class UtilesTest {
 
-	@Ignore
+	@Test
 	void testDameNumero() {
 		// La dificultad de probar lo aleatorio
 		// necesito probar un metodo que me da un valor entre 0 y limite (no incluido)
