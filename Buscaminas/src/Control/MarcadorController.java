@@ -16,8 +16,8 @@ public class MarcadorController {
 		return tablero;
 	}
 	
-	public boolean marcarController(Coordenada coordenada) {
-		return tablero.marcarCasilla(coordenada);
+	public boolean marcarController(int posX, int posY) {
+		return tablero.marcarCasilla(new Coordenada(posX, posY));
 	}
 
 }

@@ -15,8 +15,8 @@ public class DesmarcadorController {
 		return tablero;
 	}
 
-	public boolean desmarcarController(Coordenada coordenada) {
-		return tablero.desmarcarCasilla(coordenada);
+	public boolean desmarcarController(int posX, int posY) {
+		return tablero.desmarcarCasilla(new Coordenada(posX, posY));
 	}
 
 	

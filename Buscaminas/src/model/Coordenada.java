@@ -26,5 +26,18 @@ public class Coordenada {
 		this.posY = posY;
 	}
 	
-
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof Coordenada)) {
+			return false;
+		}
+		Coordenada coordenada = (Coordenada) obj;
+		return this.getPosX() == coordenada.getPosX() && this.getPosY() == coordenada.getPosY();
+	}
 }

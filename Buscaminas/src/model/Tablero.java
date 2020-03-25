@@ -10,12 +10,12 @@ public class Tablero {
 		super();
 		crearTablero(lado);
 		colocarMinas(lado, numeroBombas);
-		establecerMinasAlrededor();
+
 	}
 
 	public boolean marcarCasilla(Coordenada coordenada) {
 		assert inRango(coordenada);
-		
+
 		boolean bandera = false;
 		if (isVelada(coordenada) && !isMarcada(coordenada)) {
 			bandera = true;
@@ -26,7 +26,7 @@ public class Tablero {
 
 	public boolean desmarcarCasilla(Coordenada coordenada) {
 		assert inRango(coordenada);
-		
+
 		boolean bandera = false;
 		if (isVelada(coordenada) && isMarcada(coordenada)) {
 			bandera = true;
@@ -38,11 +38,6 @@ public class Tablero {
 	private boolean inRango(Coordenada coordenada) {
 		return (coordenada.getPosX() > 0 && coordenada.getPosX() < this.casillas.length)
 				&& (coordenada.getPosY() > 0 && coordenada.getPosY() < this.casillas.length);
-	}
-
-	private void establecerMinasAlrededor() {
-		// TODO
-
 	}
 
 	private void colocarMinas(int lado, int numeroBombas) {
@@ -61,9 +56,33 @@ public class Tablero {
 					} while (getCasilla(miCoordenada).isMina());
 				}
 				getCasilla(miCoordenada).setMina(true);
+				establecerMinasAlrededor(miCoordenada);
+			}
+		}
+	}
+
+	private void establecerMinasAlrededor(Coordenada coordenadaMinaActual) {
+		int incremento = 1, lado = this.casillas.length;
+		int posX = coordenadaMinaActual.getPosX();
+		int posY = coordenadaMinaActual.getPosY();
+
+		for (int i = posX - 1; i < posX + lado; i++) {
+			for (int j = posY - 1; j < posY + lado; j++) {
+				Coordenada alrededor = new Coordenada(i, j);
+				if (!alrededor.equals(coordenadaMinaActual) && isDentroLimites(alrededor)) {
+					Casilla casillaAlrededor = getCasilla(alrededor);
+					if (!casillaAlrededor.isMina()) {
+						casillaAlrededor.setMinasAlrededor(casillaAlrededor.getMinasAlrededor() + incremento);
+					}
+				}
 			}
 		}
 
+	}
+
+	private boolean isDentroLimites(Coordenada alrededor) {
+		return alrededor.getPosX() >= 0 && alrededor.getPosX() < casillas.length && alrededor.getPosY() >= 0
+				&& alrededor.getPosY() < casillas.length;
 	}
 
 	private void otraPosicionAleatoria(int lado, int[][] posicionesAleatorias, int posicion) {
@@ -109,11 +128,11 @@ public class Tablero {
 	private boolean isMina(Coordenada posicion) {
 		return getCasilla(posicion).isMina();
 	}
-	
+
 	private boolean isVelada(Coordenada coordenada) {
 		return getCasilla(coordenada).isVelada();
 	}
-	
+
 	private boolean isMarcada(Coordenada coordenada) {
 		return getCasilla(coordenada).isMarcada();
 	}
