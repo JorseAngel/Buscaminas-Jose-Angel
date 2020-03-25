@@ -14,7 +14,7 @@ class TableroTest {
 	private int porcentaje;
 	private int minas;
 	private Tablero tablero;
-	
+
 	@BeforeEach
 	void setUp() {
 		lado = 4;
@@ -22,7 +22,7 @@ class TableroTest {
 		minas = Utiles.calculaMinas(lado, porcentaje);
 		tablero = new Tablero(lado, minas);
 	}
-	
+
 	@Test
 	void testTableroColocarMinas() {
 		// Al crear el tablero se colocaran las minas
@@ -41,7 +41,7 @@ class TableroTest {
 		}
 		assertEquals(minas, contadorMinas);
 	}
-	
+
 	@Test
 	void testDesvelarCasilla() {
 		// Hay que probar que se desvela si no esta marcada
@@ -87,14 +87,25 @@ class TableroTest {
 		return alrededor.getPosX() >= 0 && alrededor.getPosX() < lado && alrededor.getPosY() >= 0
 				&& alrededor.getPosY() < lado;
 	}
-	
+
 	@Test
-	void testTableroMarcarCasilla() {
-		//TODO
+	void testTableroMarcarDesmarcarCasilla() {
+		Coordenada coordenadasCasillaMarcar = new Coordenada(Utiles.dameNumero(lado), Utiles.dameNumero(lado));
+		
+//		if (!tablero.getCasilla(coordenadasCasillaMarcar).isMina()) {
+			boolean primerMarcado = tablero.marcarCasilla(coordenadasCasillaMarcar);
+			assertTrue(primerMarcado);
+			
+			boolean segundoMarcado = tablero.marcarCasilla(coordenadasCasillaMarcar);
+			assertFalse(segundoMarcado);
+			
+			boolean primerDesmarcado = tablero.desmarcarCasilla(coordenadasCasillaMarcar);
+			assertTrue(primerDesmarcado);
+			
+			boolean segundoDesmarcado = tablero.desmarcarCasilla(coordenadasCasillaMarcar);
+			assertFalse(segundoDesmarcado);
+//		}
+		
 	}
-	
-	@Test
-	void testTableroDesmarcarCasilla() {
-		//TODO
-	}
+
 }

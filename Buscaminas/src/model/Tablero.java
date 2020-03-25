@@ -36,8 +36,8 @@ public class Tablero {
 	}
 
 	private boolean inRango(Coordenada coordenada) {
-		return (coordenada.getPosX() > 0 && coordenada.getPosX() < this.casillas.length)
-				&& (coordenada.getPosY() > 0 && coordenada.getPosY() < this.casillas.length);
+		return (coordenada.getPosX() >= 0 && coordenada.getPosX() < this.casillas.length)
+				&& (coordenada.getPosY() >= 0 && coordenada.getPosY() < this.casillas.length);
 	}
 
 	private void colocarMinas(int lado, int numeroBombas) {
