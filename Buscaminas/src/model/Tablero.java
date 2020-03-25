@@ -66,8 +66,8 @@ public class Tablero {
 		int posX = coordenadaMinaActual.getPosX();
 		int posY = coordenadaMinaActual.getPosY();
 
-		for (int i = posX - 1; i < posX + lado; i++) {
-			for (int j = posY - 1; j < posY + lado; j++) {
+		for (int i = posX - 1; i <= posX + 1; i++) {
+			for (int j = posY - 1; j <= posY + 1; j++) {
 				Coordenada alrededor = new Coordenada(i, j);
 				if (!alrededor.equals(coordenadaMinaActual) && isDentroLimites(alrededor)) {
 					Casilla casillaAlrededor = getCasilla(alrededor);
