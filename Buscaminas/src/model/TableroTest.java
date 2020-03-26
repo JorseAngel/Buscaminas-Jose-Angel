@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import Control.MarcadorController;
+import Control._04_MarcadorController;
 import utiles.Utiles;
 
 class TableroTest {
@@ -24,14 +24,56 @@ class TableroTest {
 	}
 
 	@Test
-	void testTableroColocarMinas() {
-		// Al crear el tablero se colocaran las minas
+	void testGetNumeroMinas() {
 		Tablero tablero = new Tablero(lado, minas);
-		// si todo ha salido bien cuando recorra el tablero
-		// me encontrare un numero minas de minas
+		
+		assertEquals(minas, tablero.getNumeroMinas());
+	}
+	
+//	@Test
+//	void testIncrementarMinasAlrededor() {
+//		int posX=0;
+//		int posY=0;
+//		int lado=4;
+//		Coordenada miMinaCoordenada=new Coordenada(posX, posY);
+//		Tablero tablero=new Tablero(lado);
+//		tablero.getCasilla(miMinaCoordenada).setMina(true);
+//		tablero.establecerMinasAlrededor(miMinaCoordenada);
+//		int resultado[][]= {
+//				{0,1,0,0},
+//				{1,1,0,0},
+//				{0,0,0,0},
+//				{0,0,0,0}};
+//		probando(tablero, resultado);
+//		//Si coloco la segundaMina;
+//		posX=3;
+//		posY=3;
+//		miMinaCoordenada=new Coordenada(posX, posY);
+//		tablero.getCasilla(miMinaCoordenada).setMina(true);
+//		tablero.establecerMinasAlrededor(miMinaCoordenada);
+//		int resultadoDos[][]= {
+//				{0,1,0,0},
+//				{1,1,0,0},
+//				{0,0,1,1},
+//				{0,0,1,0}};
+//		probando(tablero, resultadoDos);
+//		
+//	}
+//
+//	private void probando(Tablero tablero, int[][] resultado) {
+//		Casilla[][] casillas = tablero.getCasillas();
+//		for (int i = 0; i < casillas.length; i++) {
+//			for (int j = 0; j < casillas.length; j++) {
+//				assertEquals(resultado[i][j],casillas[i][j].getMinasAlrededor());
+//			}
+//		}
+//	}
+
+	@Test
+	void testTableroColocarMinas() {
+		Tablero tablero = new Tablero(lado, minas);
 		int contadorMinas = 0;
-		// Aqui nos vemos obligados a crear tanto codigo porque los resultados
-		// son aleatorios
+
 		for (int i = 0; i < lado; i++) {
 			for (int j = 0; j < lado; j++) {
 				if (tablero.getCasilla(new Coordenada(i, j)).isMina()) {
@@ -91,21 +133,19 @@ class TableroTest {
 	@Test
 	void testTableroMarcarDesmarcarCasilla() {
 		Coordenada coordenadasCasillaMarcar = new Coordenada(Utiles.dameNumero(lado), Utiles.dameNumero(lado));
-		
-//		if (!tablero.getCasilla(coordenadasCasillaMarcar).isMina()) {
-			boolean primerMarcado = tablero.marcarCasilla(coordenadasCasillaMarcar);
-			assertTrue(primerMarcado);
-			
-			boolean segundoMarcado = tablero.marcarCasilla(coordenadasCasillaMarcar);
-			assertFalse(segundoMarcado);
-			
-			boolean primerDesmarcado = tablero.desmarcarCasilla(coordenadasCasillaMarcar);
-			assertTrue(primerDesmarcado);
-			
-			boolean segundoDesmarcado = tablero.desmarcarCasilla(coordenadasCasillaMarcar);
-			assertFalse(segundoDesmarcado);
-//		}
-		
+
+		boolean primerMarcado = tablero.marcarCasilla(coordenadasCasillaMarcar);
+		assertTrue(primerMarcado);
+
+		boolean segundoMarcado = tablero.marcarCasilla(coordenadasCasillaMarcar);
+		assertFalse(segundoMarcado);
+
+		boolean primerDesmarcado = tablero.desmarcarCasilla(coordenadasCasillaMarcar);
+		assertTrue(primerDesmarcado);
+
+		boolean segundoDesmarcado = tablero.desmarcarCasilla(coordenadasCasillaMarcar);
+		assertFalse(segundoDesmarcado);
+
 	}
 
 }

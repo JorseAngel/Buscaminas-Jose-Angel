@@ -4,10 +4,10 @@ import model.Casilla;
 import model.Coordenada;
 import model.Tablero;
 
-public class MarcadorController {
+public class _04_MarcadorController {
 	Tablero tablero;
 
-	public MarcadorController(Tablero tablero) {
+	public _04_MarcadorController(Tablero tablero) {
 		super();
 		this.tablero = tablero;
 	}
