@@ -12,7 +12,7 @@ public class Tablero {
 		colocarMinas(lado, numeroBombas);
 
 	}
-	
+
 	public boolean marcarCasilla(Coordenada coordenada) {
 		assert inRango(coordenada);
 
@@ -39,7 +39,7 @@ public class Tablero {
 		return (coordenada.getPosX() >= 0 && coordenada.getPosX() < this.casillas.length)
 				&& (coordenada.getPosY() >= 0 && coordenada.getPosY() < this.casillas.length);
 	}
-	
+
 	private void colocarMinas(int lado, int numeroBombas) {
 		int tamano = 2;
 		int posicionesAleatorias[][] = new int[numeroBombas][tamano];
@@ -60,7 +60,7 @@ public class Tablero {
 			}
 		}
 	}
-	
+
 	private void establecerMinasAlrededor(Coordenada coordenadaMinaActual) {
 		int incremento = 1, lado = this.casillas.length;
 		int posX = coordenadaMinaActual.getPosX();
@@ -115,10 +115,10 @@ public class Tablero {
 	public Casilla[][] getCasillas() {
 		return casillas;
 	}
-	
+
 	public int getNumeroMinas() {
 		int numeroMinas = 0;
-		
+
 		for (int i = 0; i < casillas.length; i++) {
 			for (int j = 0; j < casillas.length; j++) {
 				if (casillas[i][j].isMina()) {
@@ -126,7 +126,7 @@ public class Tablero {
 				}
 			}
 		}
-		
+
 		return numeroMinas;
 	}
 
@@ -150,12 +150,29 @@ public class Tablero {
 	private boolean isMarcada(Coordenada coordenada) {
 		return getCasilla(coordenada).isMarcada();
 	}
-	
+
 	public boolean desvelarCasilla(Coordenada coordenada) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean bandera = false;
+
+		Casilla casillaActual = getCasilla(coordenada);
+		int posX = coordenada.getPosX(), posY = coordenada.getPosY();
+		if (casillaActual.isVelada() && !casillaActual.isMarcada()) {
+			casillaActual.setVelada(false);
+
+			for (int i = posX - 1; i <= posX + 1; i++) {
+				for (int j = posY - 1; j <= posY + 1; j++) {
+					Coordenada coordenadaRecorrido = new Coordenada(i, j);
+					if (isDentroLimites(coordenadaRecorrido) && casillaActual.getMinasAlrededor() == 0
+							&& !coordenada.equals(coordenadaRecorrido) && !casillaActual.isMina()) {
+						desvelarCasilla(coordenadaRecorrido);
+					}
+				}
+			}
+		}
+
+		return bandera;
 	}
-	
+
 	public boolean seleccionarCasillaDesvelada(Coordenada coordenada) {
 		// TODO Auto-generated method stub
 		return false;
