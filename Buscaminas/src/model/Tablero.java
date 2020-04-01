@@ -164,7 +164,8 @@ public class Tablero {
 						Coordenada coordenadaRecorrido = new Coordenada(i, j);
 						if (isDentroLimites(coordenadaRecorrido) && getCasilla(coordenadaRecorrido).isVelada()
 								&& !coordenada.equals(coordenadaRecorrido)) {
-							getCasilla(coordenadaRecorrido).setVelada(false);
+//							getCasilla(coordenadaRecorrido).setVelada(false);
+							desvelarCasilla(coordenadaRecorrido);
 						}
 					}
 				}

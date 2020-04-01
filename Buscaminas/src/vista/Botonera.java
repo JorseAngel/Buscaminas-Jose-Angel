@@ -36,6 +36,7 @@ public class Botonera extends JPanel {
 	public Botonera(int lado, DesveladorController desveladorController, MarcadorController marcadorController) {
 		this.marcadorController = marcadorController;
 		this.desveladorController = desveladorController;
+		boolean minaDesvelada = false;
 		// el nombre para cuando hay mas de 10 de lado.
 		// debe ser de dos digitos por coordenada aunque el valor<10
 		// es decir la coordenada 6:11 debe ser 06:11, por ejemplo.
@@ -51,6 +52,8 @@ public class Botonera extends JPanel {
 				boton.addMouseListener(miMouseAdapter);
 			}
 		}
+		
+		
 	}
 
 	private void darNombre(JButton boton, int filas, int columnas) {
@@ -86,6 +89,7 @@ public class Botonera extends JPanel {
 			} else {
 				boton.setText("");
 			}
+			
 		}
 	}
 
