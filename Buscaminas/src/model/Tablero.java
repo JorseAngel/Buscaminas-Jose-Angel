@@ -141,7 +141,7 @@ public class Tablero {
 
 		desvelarCasillaVelada(coordenada, casillaActual, posX, posY);
 		desvelarCasillasAlrededorDesvelada(coordenada, casillaActual, posX, posY);
-		
+
 	}
 
 	private void desvelarCasillasAlrededorDesvelada(Coordenada coordenada, Casilla casillaActual, int posX, int posY) {
@@ -157,7 +157,7 @@ public class Tablero {
 					}
 				}
 			}
-			
+
 			if (casillasBienMarcadas == casillaActual.getMinasAlrededor()) {
 				for (int i = posX - 1; i <= posX + 1; i++) {
 					for (int j = posY - 1; j <= posY + 1; j++) {
@@ -170,7 +170,7 @@ public class Tablero {
 					}
 				}
 			}
-			
+
 		}
 	}
 
@@ -188,5 +188,52 @@ public class Tablero {
 				}
 			}
 		}
+	}
+
+	public boolean ganarPartida() {
+		boolean bandera = false;
+		int contadorMinasMarcadas = 0, contadorCasillasDesveladas = 0;
+
+		for (int i = 0; i < getCasillas().length; i++) {
+			for (int j = 0; j < getCasillas().length; j++) {
+				Coordenada cordenadaActual = new Coordenada(i, j);
+				if (getCasilla(cordenadaActual).isMina() && getCasilla(cordenadaActual).isMarcada()) {
+					contadorMinasMarcadas++;
+				}
+				if (!getCasilla(cordenadaActual).isMina() && !getCasilla(cordenadaActual).isVelada()) {
+					contadorCasillasDesveladas++;
+				}
+			}
+
+			int totalCasillasSinMina = (getCasillas().length * 2) - getNumeroMinas();
+			if (getNumeroMinas() == contadorMinasMarcadas && totalCasillasSinMina == contadorCasillasDesveladas) {
+				bandera = true;
+			}
+		}
+
+		return bandera;
+	}
+
+	public boolean perderPartida() {
+		boolean bandera = false;
+		
+		for (int i = 0; i < casillas.length && !bandera; i++) {
+			for (int j = 0; j < casillas.length && !bandera; j++) {
+				Coordenada coordenadaActual = new Coordenada(i, j);
+				if (this.getCasilla(coordenadaActual).isMina() && !this.getCasilla(coordenadaActual).isVelada()) {
+					bandera = true;
+				}
+			}
+		}
+
+		if (bandera) {
+			for (int k = 0; k < casillas.length; k++) {
+				for (int h = 0; h < casillas.length; h++) {
+					getCasilla(new Coordenada(k, h)).setVelada(false);
+				}
+			}
+		}
+		
+		return bandera;
 	}
 }
