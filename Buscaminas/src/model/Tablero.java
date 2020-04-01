@@ -14,25 +14,8 @@ public class Tablero {
 	}
 
 	public boolean marcarCasilla(Coordenada coordenada) {
-		assert inRango(coordenada);
-
-		boolean bandera = false;
-		if (isVelada(coordenada) && !isMarcada(coordenada)) {
-			bandera = true;
-			getCasilla(coordenada).setMarcada(true);
-		}
-		return bandera;
-	}
-
-	public boolean desmarcarCasilla(Coordenada coordenada) {
-		assert inRango(coordenada);
-
-		boolean bandera = false;
-		if (isVelada(coordenada) && isMarcada(coordenada)) {
-			bandera = true;
-			getCasilla(coordenada).setMarcada(false);
-		}
-		return bandera;
+		Casilla casilla = getCasilla(coordenada);
+		return casilla.marcar();
 	}
 
 	private boolean inRango(Coordenada coordenada) {
@@ -151,11 +134,46 @@ public class Tablero {
 		return getCasilla(coordenada).isMarcada();
 	}
 
-	public boolean desvelarCasilla(Coordenada coordenada) {
-		boolean bandera = false;
+	public void desvelarCasilla(Coordenada coordenada) {
 
 		Casilla casillaActual = getCasilla(coordenada);
 		int posX = coordenada.getPosX(), posY = coordenada.getPosY();
+
+		desvelarCasillaVelada(coordenada, casillaActual, posX, posY);
+		desvelarCasillasAlrededorDesvelada(coordenada, casillaActual, posX, posY);
+		
+	}
+
+	private void desvelarCasillasAlrededorDesvelada(Coordenada coordenada, Casilla casillaActual, int posX, int posY) {
+		if (!casillaActual.isVelada() && !casillaActual.isMarcada()) {
+			int casillasBienMarcadas = 0;
+
+			for (int i = posX - 1; i <= posX + 1; i++) {
+				for (int j = posY - 1; j <= posY + 1; j++) {
+					Coordenada coordenadaRecorrido = new Coordenada(i, j);
+					if (isDentroLimites(coordenadaRecorrido) && !coordenada.equals(coordenadaRecorrido)
+							&& getCasilla(coordenadaRecorrido).isMarcada()) {
+						casillasBienMarcadas++;
+					}
+				}
+			}
+			
+			if (casillasBienMarcadas == casillaActual.getMinasAlrededor()) {
+				for (int i = posX - 1; i <= posX + 1; i++) {
+					for (int j = posY - 1; j <= posY + 1; j++) {
+						Coordenada coordenadaRecorrido = new Coordenada(i, j);
+						if (isDentroLimites(coordenadaRecorrido) && getCasilla(coordenadaRecorrido).isVelada()
+								&& !coordenada.equals(coordenadaRecorrido)) {
+							getCasilla(coordenadaRecorrido).setVelada(false);
+						}
+					}
+				}
+			}
+			
+		}
+	}
+
+	private void desvelarCasillaVelada(Coordenada coordenada, Casilla casillaActual, int posX, int posY) {
 		if (casillaActual.isVelada() && !casillaActual.isMarcada()) {
 			casillaActual.setVelada(false);
 
@@ -169,12 +187,5 @@ public class Tablero {
 				}
 			}
 		}
-
-		return bandera;
-	}
-
-	public boolean seleccionarCasillaDesvelada(Coordenada coordenada) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 }

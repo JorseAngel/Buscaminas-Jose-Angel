@@ -1,11 +1,12 @@
 package model;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import Control._04_MarcadorController;
 import utiles.Utiles;
 
 class TableroTest {
@@ -135,16 +136,16 @@ class TableroTest {
 		Coordenada coordenadasCasillaMarcar = new Coordenada(Utiles.dameNumero(lado), Utiles.dameNumero(lado));
 
 		boolean primerMarcado = tablero.marcarCasilla(coordenadasCasillaMarcar);
-		assertTrue(primerMarcado);
+		assertTrue(tablero.getCasilla(coordenadasCasillaMarcar).isMarcada());
 
 		boolean segundoMarcado = tablero.marcarCasilla(coordenadasCasillaMarcar);
-		assertFalse(segundoMarcado);
+		assertFalse(tablero.getCasilla(coordenadasCasillaMarcar).isMarcada());
 
-		boolean primerDesmarcado = tablero.desmarcarCasilla(coordenadasCasillaMarcar);
-		assertTrue(primerDesmarcado);
+		boolean primerDesmarcado = tablero.marcarCasilla(coordenadasCasillaMarcar);
+		assertTrue(tablero.getCasilla(coordenadasCasillaMarcar).isMarcada());
 
-		boolean segundoDesmarcado = tablero.desmarcarCasilla(coordenadasCasillaMarcar);
-		assertFalse(segundoDesmarcado);
+		boolean segundoDesmarcado = tablero.marcarCasilla(coordenadasCasillaMarcar);
+		assertFalse(tablero.getCasilla(coordenadasCasillaMarcar).isMarcada());
 
 	}
 
