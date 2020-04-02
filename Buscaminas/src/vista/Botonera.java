@@ -30,9 +30,13 @@ public class Botonera extends JPanel {
 			if (SwingUtilities.isRightMouseButton(e)) {
 				marcadorController.marcarCasilla(boton.getName());
 			}
-			if (getTablero().ganarPartida() || getTablero().perderPartida()) {
-				mostrarTableroDesvelado(desveladorController.getEntornoGrafico());
-			}else {
+			if (getTablero().perderPartida()) {
+				String valor = "MINA";
+				mostrarTableroDesvelado(desveladorController.getEntornoGrafico(), valor);
+			} else if (getTablero().ganarPartida()) {
+				String valor = "X";
+				mostrarTableroDesvelado(desveladorController.getEntornoGrafico(), valor);
+			} else {
 				actualizaBotonera(desveladorController.getEntornoGrafico());
 			}
 			// Al estar dentro de la botonera (el objeto)
@@ -62,8 +66,7 @@ public class Botonera extends JPanel {
 				boton.addMouseListener(miMouseAdapter);
 			}
 		}
-		
-		
+
 	}
 
 	private void darNombre(JButton boton, int filas, int columnas) {
@@ -84,21 +87,21 @@ public class Botonera extends JPanel {
 		boton.setName(nombre);
 	}
 
-	private void mostrarTableroDesvelado(ElementoGrafico[][] elementos) {
+	private void mostrarTableroDesvelado(ElementoGrafico[][] elementos, String valor) {
 		Component[] components = getComponents();
 		for (int i = 0; i < components.length; i++) {
 			JButton boton = (JButton) components[i];
 			Coordenada coordenada = obtenCoordenada(boton.getName());
 			ElementoGrafico elementoGrafico = elementos[coordenada.getPosX()][coordenada.getPosY()];
 			if (elementoGrafico.isMina()) {
-				boton.setText("M");
+				boton.setText(valor);
 			} else {
 				boton.setText(String.valueOf(elementoGrafico.getValor()));
 			}
 			boton.setEnabled(false);
 		}
 	}
-	
+
 	public void actualizaBotonera(ElementoGrafico[][] elementos) {
 		Component[] components = getComponents();
 		for (int i = 0; i < components.length; i++) {
@@ -114,7 +117,7 @@ public class Botonera extends JPanel {
 			} else {
 				boton.setText("");
 			}
-			
+
 		}
 	}
 
