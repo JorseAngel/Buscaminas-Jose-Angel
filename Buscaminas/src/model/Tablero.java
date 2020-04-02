@@ -192,7 +192,6 @@ public class Tablero {
 
 	public boolean ganarPartida() {
 		boolean bandera = true;
-//		int contadorMinasMarcadas = 0, contadorCasillasDesveladas = 0;
 
 		for (int i = 0; i < getCasillas().length; i++) {
 			for (int j = 0; j < getCasillas().length; j++) {
@@ -202,28 +201,15 @@ public class Tablero {
 					bandera = false;
 				}
 				
+				if (getCasilla(cordenadaActual).isVelada() && !getCasilla(cordenadaActual).isMina()) {
+					bandera = false;
+				}
+				
 				if (!getCasilla(cordenadaActual).isVelada() && getCasilla(cordenadaActual).isMina()) {
 					bandera = false;
 				}
 			}
 		}
-
-//		for (int i = 0; i < getCasillas().length; i++) {
-//			for (int j = 0; j < getCasillas().length; j++) {
-//				Coordenada cordenadaActual = new Coordenada(i, j);
-//				if (getCasilla(cordenadaActual).isMina() && getCasilla(cordenadaActual).isMarcada()) {
-//					contadorMinasMarcadas++;
-//				}
-//				if (!getCasilla(cordenadaActual).isMina() && !getCasilla(cordenadaActual).isVelada()) {
-//					contadorCasillasDesveladas++;
-//				}
-//			}
-//
-//			int totalCasillasSinMina = (getCasillas().length * 2) - getNumeroMinas();
-//			if (getNumeroMinas() == contadorMinasMarcadas && totalCasillasSinMina == contadorCasillasDesveladas) {
-//				bandera = true;
-//			}
-//		}
 
 		return bandera;
 	}
